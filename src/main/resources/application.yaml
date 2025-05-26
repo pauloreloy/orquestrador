@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: Orquestrador
+  cloud:
+    aws:
+      dynamodb:
+        table_name: tbl_orquestrador_portabilidade
+      sqs:
+        listener:
+          max-concurrent-messages: 10
+      region:
+        static: us-east-1
+      credentials:
+        access-key: ${AWS_ACCESS_KEY_ID}
+        secret-key: ${AWS_SECRET_ACCESS_KEY}
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: orquestrador-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+server:
+  port: 9000
+
+sqs:
+  orquestrador:
+    queue-name: "RespostaQueue"
+
+kafka:
+  elegida:
+    topic: "elegida"
+
+stepfunction:
+  arn: "arn:aws:states:us-east-1:338966484167:stateMachine:Portabilidade"
+
+controlador:
+  url: "https://httpbin.org/post"
