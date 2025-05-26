@@ -8,6 +8,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Configuration
 public class AwsConfig {
@@ -24,6 +25,18 @@ public class AwsConfig {
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
         return SqsAsyncClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(
+                        StaticCredentialsProvider.create(
+                                AwsBasicCredentials.create(accessKey, secretKey)
+                        )
+                )
+                .build();
+    }
+
+    @Bean
+    public DynamoDbClient dynamoDbClient() {
+        return DynamoDbClient.builder()
                 .region(Region.of(region))
                 .credentialsProvider(
                         StaticCredentialsProvider.create(

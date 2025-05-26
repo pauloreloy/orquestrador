@@ -2,6 +2,7 @@ package br.dev.pre.orquestrador.adapter.out.aws;
 
 import br.dev.pre.orquestrador.adapter.out.aws.interfaces.StepFunction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListStateMachinesResponse;
@@ -12,12 +13,14 @@ import software.amazon.awssdk.services.sfn.model.StateMachineListItem;
 import java.util.Optional;
 
 @Component
-public class StepFunctionService implements StepFunction {
+public class StepFunctionImpl implements StepFunction {
 
     private final SfnClient sfnClient;
 
-    @Autowired
-    public StepFunctionService(SfnClient sfnClient) {
+    @Value("${stepfunction.arn}")
+    private String arn;
+
+    public StepFunctionImpl(SfnClient sfnClient) {
         this.sfnClient = sfnClient;
     }
 
@@ -39,13 +42,14 @@ public class StepFunctionService implements StepFunction {
     }
 
     @Override
-    public void startExecution(String arn, String inputJson) {
+    public void startExecution(String inputJson) {
         StartExecutionRequest request = StartExecutionRequest.builder()
                 .stateMachineArn(arn)
                 .input(inputJson)
                 .build();
 
         StartExecutionResponse response = sfnClient.startExecution(request);
+        System.out.println(response);
     }
 
 }
