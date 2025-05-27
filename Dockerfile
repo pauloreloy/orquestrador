@@ -17,11 +17,12 @@ RUN apt-get update && \
 
 # Baixa e instala Confluent Platform (Kafka, Zookeeper, Schema Registry)
 ENV CONFLUENT_VERSION=7.5.0
-RUN mkdir -p /opt && \
+
+RUN mkdir -p /opt/confluent && \
     wget https://packages.confluent.io/archive/7.5/confluent-community-7.5.0.tar.gz && \
     tar -xzf confluent-community-7.5.0.tar.gz && \
-    mv confluent-* /opt/confluent && \
-    rm confluent-community-7.5.0.tar.gz
+    mv confluent-*/* /opt/confluent && \
+    rm -rf confluent-community-7.5.0.tar.gz confluent-*
 
 ENV PATH="$PATH:/opt/confluent/bin"
 
@@ -34,4 +35,5 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Expõe as portas necessárias
 EXPOSE 8080 2181 9092 29092 8081
 
+# Inicia todos os serviços
 CMD ["/usr/bin/supervisord"]
