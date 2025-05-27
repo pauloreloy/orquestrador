@@ -26,7 +26,7 @@ public class ProcessaElegidaUseCase {
                 "elegida",
                 "in_progress",
                 null);
-        //stepFunction.startExecution(portabilidade.getCodigoIdentificadorPortabilidade());
+        stepFunction.startExecution(portabilidade.toJson());
     }
 
 }

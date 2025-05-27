@@ -1,6 +1,8 @@
 package br.dev.pre.orquestrador.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +28,15 @@ public class PortabilidadeEntity {
         return "PortabilidadeEntity{" +
                 "codigoIdentificadorPortabilidade='" + codigoIdentificadorPortabilidade + '\'' +
                 '}';
+    }
+
+    public String toJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to convert PortabilidadeEntity to JSON", e);
+        }
     }
 
 }

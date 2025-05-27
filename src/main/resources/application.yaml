@@ -25,7 +25,7 @@ server:
 
 sqs:
   orquestrador:
-    queue-name: "RespostaQueue"
+    queue-name: "sqs-orquestrador"
 
 kafka:
   elegida:
