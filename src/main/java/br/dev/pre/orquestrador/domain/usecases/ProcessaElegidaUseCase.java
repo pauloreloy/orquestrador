@@ -1,9 +1,7 @@
 package br.dev.pre.orquestrador.domain.usecases;
 
-import br.dev.pre.orquestrador.adapter.out.aws.StepFunctionImpl;
 import br.dev.pre.orquestrador.adapter.out.aws.interfaces.DynamoDbRepository;
 import br.dev.pre.orquestrador.adapter.out.aws.interfaces.StepFunction;
-import br.dev.pre.orquestrador.adapter.out.controlador.interfaces.ControladorClient;
 import br.dev.pre.orquestrador.domain.entities.PortabilidadeEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

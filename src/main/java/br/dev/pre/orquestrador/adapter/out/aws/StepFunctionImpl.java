@@ -1,7 +1,6 @@
 package br.dev.pre.orquestrador.adapter.out.aws;
 
 import br.dev.pre.orquestrador.adapter.out.aws.interfaces.StepFunction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sfn.SfnClient;
